@@ -28,7 +28,7 @@ services:
     command:
     - run
     - cron
-    image: sentry:8.21.0
+    image: sentry:9.1.1
     links:
     - sentry-postgres:postgres
     - sentry-redis:redis
@@ -58,7 +58,7 @@ services:
     - /bin/bash
     - -c
     - sentry upgrade --noinput && sentry createuser --email ${sentry_initial_user_email} --password ${sentry_initial_user_password} --superuser && /entrypoint.sh run web || /entrypoint.sh run web
-    image: sentry:8.21.0
+    image: sentry:9.1.1
     links:
     - sentry-postgres:postgres
     - sentry-redis:redis
@@ -80,7 +80,7 @@ services:
     command:
     - run
     - worker
-    image: sentry:8.21.0
+    image: sentry:9.1.1
     links:
     - sentry-postgres:postgres
     - sentry-redis:redis
