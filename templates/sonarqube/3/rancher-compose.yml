@@ -10,10 +10,10 @@ catalog:
       description: "SonarQube docker version"
       label: "SonarQube docker version"
       required: true
-      default: "8.4"
+      default: "8.4-community"
       type: "enum"
       options:
-        - 8.4
+        - 8.4-community
     - variable: http_port
       description: "SonarQube http port"
       label: "SonarQube http Port"
