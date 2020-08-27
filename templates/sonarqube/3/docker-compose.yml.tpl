@@ -14,7 +14,11 @@ services:
       - SERVICE_GID=0
       - SERVICE_VOLUME=/opt/sonarqube/extensions/plugins
     volumes:
-      - sonarqube-plugin:/opt/sonarqube/extensions/plugins
+      - sonarqube_conf:/opt/sonarqube/conf
+      - sonarqube_data:/opt/sonarqube/data
+      - sonarqube_extensions:/opt/sonarqube/extensions
+      - sonarqube_plugins:/opt/sonarqube/extensions/plugins
+      - sonarqube_bundled-plugins:/opt/sonarqube/lib/bundled-plugins
     image: rawmind/alpine-volume:0.0.2-1
   sonarqube:
     labels:
@@ -34,6 +38,10 @@ services:
 {{- else}}
     links:
       - db:db
+    ulimits:
+      nofile:
+        soft: 65536
+        hard: 65536
   db:
     labels:
       io.rancher.container.hostname_override: container_name
@@ -59,7 +67,17 @@ services:
     image: rawmind/alpine-volume:0.0.2-1
 {{- end}}
 volumes:
-  sonarqube-plugin:
+  sonarqube_conf:
+    driver: local
+  sonarqube_data:
+    driver: local
+  sonarqube_extensions:
+    driver: local
+  sonarqube_plugins:
+    driver: local
+  sonarqube_bundled-plugins:
+    driver: local
+  db-data:
     driver: local
 {{- if eq .Values.postgres_link ""}}
   db-data:
